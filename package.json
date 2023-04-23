@@ -1,0 +1,16 @@
+{
+  "name": "flatshare",
+  "version": "1.0.0",
+  "description": "Uni-Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.0.4"
+  }
+}
