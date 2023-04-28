@@ -1,5 +1,6 @@
 import express from 'express';
 import { Request, Response,} from 'express';
+const homeController = require('./controllers/homeController');
 
 
 const app = express();
@@ -18,6 +19,8 @@ app.get('/', (req:Request, res:Response) => {
     res.send('FlatShare');
     }
 );
+
+app.get("/todos", homeController.showTodos)
 
 
 app.listen(3000, () => {

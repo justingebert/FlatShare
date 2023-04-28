@@ -1,0 +1,6 @@
+<h1>Todos</h1>
+<% todos.forEach(todo=> { %>
+    <h5><%= todo.name %>
+    <% let checked = todo.completed ? "checked" : "" %>
+    <input type="checkbox" <%= checked %> />
+<% }); %>
