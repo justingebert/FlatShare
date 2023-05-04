@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+	<link rel="stylesheet" href="/css/styles.css">
+</head>
 <body>
 	<div id="header">HEADER</div>
-
-	<%- body %>
+	<%- include('partials/navigation') %>
+	<div id="container">
+		<%- body %>
+	</div>
+	
 
 	<div id="footer">FOOTER</div>
 </body>
