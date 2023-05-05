@@ -18,8 +18,11 @@ app.get('/', (req:Request, res:Response,) => {
     }
 );
 
-app.get("/todos", homeController.showTodos)
-
+app.get("/todos", homeController.showTodos);
+app.get("/chat", (req:Request, res:Response,) => {
+    res.render("chat")
+    }
+);
 
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
