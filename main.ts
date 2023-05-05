@@ -15,7 +15,11 @@ app.use(express.static("public"));
 
 app.get('/', homeController.showHome);
 
-app.get("/todos", homeController.showTodos)
+app.get("/todos", homeController.showTodos);
+app.get("/chat", (req:Request, res:Response,) => {
+    res.render("chat")
+    }
+);
 
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
