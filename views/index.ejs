@@ -1,7 +1,70 @@
 <h1> Welcome to FlatShare</h1>
 
-<div>Important</div>
-<div>People - Who is Home</div>
-<div>upcoming</div>
-<div>for me</div>
+
+
+<div>
+    <div>Important</div> 
+    <% todos.forEach(todo=> { %>
+        <h5><%= todo.name %>
+        <% let checked = todo.completed ? "checked" : "" %>
+        <input type="checkbox" <%= checked %> />
+    <% }); %>
+</div>
+<div>
+    <div>Cleaning</div> 
+    <% rooms.forEach(room=> { %>
+        <div> 
+            <h5><%= room.name %>
+            <div><%= room.assigne %></div>
+            <button>done</button>
+        </div>
+    <% }); %>
+</div>
+<div>
+    <div>Shopping</div> 
+    <% shoppingList.forEach(item=> { %>
+        <div> 
+            <h5><%= item.name %>
+            <button>Done</button>
+        </div>
+    <% }); %>
+</div>
+<div>
+    <div>Finances</div>
+    <% bills.Overall %>
+    <% bills.owe.forEach(bill=> { %>
+        <div> 
+            <h5><%= bill.name %>
+            <div><%= bill.amount %></div>
+        </div>
+    <% }); %>
+</div>
+<div>
+    <div>People - Who is Home</div> 
+    <% people.forEach(person=> { %>
+        <div> 
+            <h5><%= person.name %>
+            <div><%= person.status %></div>
+        </div>
+    <% }); %>
+</div>
+<div>
+    <div>upcoming</div>
+    <% events.forEach(event=> { %>
+        <div> 
+            <h5><%= event.name %>
+            <div><%= event.date %></div>
+        </div>
+    <% }); %>
+</div>
+<div>
+    <div>for me</div> 
+    <% tasks.forEach(task=> { %>
+        <div> 
+            <h5><%= task.name %>
+            <div><%= task.date %></div>
+            <button>Done</button>
+        </div>
+    <% }); %>
+</div>
 
