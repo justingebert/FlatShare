@@ -13,13 +13,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(layouts)
 app.use(express.static("public"));
 
-app.get('/', (req:Request, res:Response,) => {
-    res.render("index")
+app.get('/', homeController.showHome);
+
+app.get("/todos", homeController.showTodos);
+app.get("/chat", (req:Request, res:Response,) => {
+    res.render("chat")
     }
 );
-
-app.get("/todos", homeController.showTodos)
-
 
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
