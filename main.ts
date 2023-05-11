@@ -5,7 +5,7 @@ const app = express();
 const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
 
-app.set("view engine", "ejs"); 
+app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,30 +29,3 @@ app.listen(3000, () => {
     console.log('server started');
     }
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
