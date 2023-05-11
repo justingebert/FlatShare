@@ -4,6 +4,18 @@ const homeController = require('./controllers/homeController');
 const app = express();
 const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
+const mongoose = require("mongoose");
+
+mongoose.connect(
+    "mongodb://localhost:27017/flatshare", 
+    {useNewUrlParser: true,}
+);
+
+const db = mongoose.connection;
+
+db.once("open", () => {
+    console.log("Successfully connected to MongoDB using Mongoose!");
+})
 
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
