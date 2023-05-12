@@ -1,0 +1,19 @@
+
+<br>
+<br>
+<div>
+    <div>Important</div> 
+    <% todos.forEach(todo=> { %>
+        <h5><%= todo.name %>
+        <% let checked = todo.completed ? "checked" : "" %>
+        <input type="checkbox" <%= checked %> />
+    <% }); %>
+</div>
+
+<div>
+    <form action="/todos" method="post">
+        input name: <input type="text" name="name" />
+        completed?<input type="checkbox" name="completed" value="false" />
+        <input type="submit" name="submit">
+    </form>
+</div>
