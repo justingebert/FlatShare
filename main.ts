@@ -1,10 +1,11 @@
 import express from 'express';
 import { Request, Response,} from 'express';
 const homeController = require('./controllers/homeController');
+const todoController = require('./controllers/todoController');
 const app = express();
 const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
-const mongoose = require("mongoose");
+const mongoose = require("mongoose").default;
 const Shopping = require("./models/shopping"); 
 
 mongoose.connect(
@@ -28,7 +29,7 @@ app.use(express.static("public"));
 
 app.get('/', homeController.showHome);
 
-app.get("/todos", homeController.showTodos);
+//app.get("/todos", homeController.showTodos);
 app.get("/chat", (req:Request, res:Response,) => {
     res.render("chat")
     }
@@ -37,6 +38,10 @@ app.get("/subscribers", subscribersController.getAllSubscribers, (req, res, next
     console.log(req.data);
     res.send(req.data);
 });
+
+
+app.get("/todos", todoController.getAllTodos);
+app.post("/todos", todoController.saveTodo);
 
 
 app.use(errorController.pageNotFoundError);
