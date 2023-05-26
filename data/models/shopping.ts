@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 const shoppingSchema = new mongoose.Schema({
     item: String,
-    quantiy: Number,
+    quantity: Number,
 
 });
 
