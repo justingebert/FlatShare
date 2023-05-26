@@ -22,7 +22,7 @@ exports.saveShopping = async (req:any, res:any) => {
         quantity: 0
     });
 
-    console.log(Shopping);
+    console.log(newShopping);
     res.redirect("/shopping");
 
 };
