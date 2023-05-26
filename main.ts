@@ -2,6 +2,7 @@ import express from 'express';
 import { Request, Response,} from 'express';
 const homeController = require('./controllers/homeController');
 const todoController = require('./controllers/todoController');
+const shoppingController = require('./controllers/shoppingController');
 const app = express();
 const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
@@ -34,10 +35,15 @@ app.get("/chat", (req:Request, res:Response,) => {
     res.render("chat")
     }
 );
-app.get("/subscribers", subscribersController.getAllSubscribers, (req, res, next) => { 
+/*
+app.get("/subscribers", subscribersController.getAllSubscribers, (req:Request, res:Response, next) => { 
     console.log(req.data);
     res.send(req.data);
 });
+*/ 
+
+app.get("/shopping", shoppingController.getAllShopping);
+app.post("/shoppping", shoppingController.saveShopping);
 
 
 app.get("/todos", todoController.getAllTodos);

@@ -1,8 +1,13 @@
-const mongoose = require("mongoose"),
-  shoppingSchema = mongoose.Schema({
-    name: String,
-    email: String,
-    zipCode: Number
+
+import { Int32 } from "mongodb";
+
+const mongoose = require("mongoose");
+
+const shoppingSchema = new mongoose.Schema({
+    item: String,
+    quantiy: Int32,
+    
 });
 
 module.exports = mongoose.model("Shopping", shoppingSchema);
+
