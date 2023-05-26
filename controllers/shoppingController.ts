@@ -1,6 +1,6 @@
 import { NextFunction } from "express"; 
 
-const Shopping = require("..data/models/shopping");
+const Shopping = require("../data/models/shopping");
 
 exports.getAllShopping = (req:any, res:any) => {
     Shopping.find({})
