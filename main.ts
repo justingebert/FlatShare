@@ -7,7 +7,7 @@ const app = express();
 const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
 const mongoose = require("mongoose").default;
-const Shopping = require("./models/shopping"); 
+//const Shopping = require("./models/shopping");  
 
 mongoose.connect(
     "mongodb://localhost:27017/flatshare", 

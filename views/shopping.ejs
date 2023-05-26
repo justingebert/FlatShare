@@ -1,0 +1,18 @@
+
+<br>
+<br>
+<div>
+    <div>Shopping List</div> 
+    <% shopping.forEach(shopping=> { %>
+        <h5><%= shopping.item %>
+        <h6><%= shopping.quantity %>
+    <% }); %> 
+</div>
+
+<div>
+    <form action="/shopping" method="post">
+        input item: <input type="text" name="item" />
+        how many?<input type="number" name="quantity" value="<%= quantity %>" min="1" max="100" step="1">
+        <input type="submit" name="submit">
+    </form>
+</div> 

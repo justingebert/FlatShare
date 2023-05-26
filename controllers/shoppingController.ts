@@ -1,6 +1,6 @@
 import { NextFunction } from "express"; 
 
-const Shopping = require("../models/shopping");
+const Shopping = require("..data/models/shopping");
 
 exports.getAllShopping = (req:any, res:any) => {
     Shopping.find({})
@@ -18,8 +18,8 @@ exports.getAllShopping = (req:any, res:any) => {
 
 exports.saveShopping = async (req:any, res:any) => {
     let newShopping = await Shopping.create({
-        name: req.body.name,
-        completed: false
+        item: req.body.item,
+        quantity: 0
     });
 
     console.log(Shopping);
