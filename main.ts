@@ -3,6 +3,7 @@ import { Request, Response,} from 'express';
 const homeController = require('./controllers/homeController');
 const todoController = require('./controllers/todoController');
 const shoppingController = require('./controllers/shoppingController');
+const userController = require('./controllers/userController');
 const app = express();
 const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
@@ -28,6 +29,13 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(layouts)
 app.use(express.static("public"));
+
+app.get('/', homeController.showHome);
+
+app.get("/users", userController.index, userController.indexView);
+app.get("/users/new", userController.new);
+app.post("/users/create", userController.create, userController.redirectView);
+app.get("/users/:id", userController.show, userController.showView);
 
 //app.get("/todos", homeController.showTodos);
 app.get("/chat", (req:Request, res:Response,) => {
