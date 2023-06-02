@@ -7,16 +7,17 @@ const userController = require('./controllers/userController');
 const app = express();
 const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
+const expensesController = require("./controllers/expensesController");
 const mongoose = require("mongoose").default;
 //const Shopping = require("./models/shopping");  
 
+mongoose.Promise= global.Promise
 mongoose.connect(
     "mongodb://localhost:27017/flatshare", 
     {useNewUrlParser: true,}
 );
 
 const db = mongoose.connection;
-
 db.once("open", () => {
     console.log("Successfully connected to MongoDB using Mongoose!");
 })
@@ -56,9 +57,12 @@ app.get("/todos", todoController.getAllTodos);
 app.post("/todos", todoController.saveTodo);
 
 
+app.get("/expenses",expensesController.getAllExpenses);
+app.post("/expenses", expensesController.saveExpense);
+
+
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
-
 
 app.listen(3000, () => {
     console.log('server started');
