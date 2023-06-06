@@ -4,6 +4,7 @@ const homeController = require('./controllers/homeController');
 const todoController = require('./controllers/todoController');
 const shoppingController = require('./controllers/shoppingController');
 const userController = require('./controllers/userController');
+const documentsController = require('./controllers/documentsController');
 const app = express();
 const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
@@ -59,6 +60,9 @@ app.post("/todos", todoController.saveTodo);
 
 app.get("/expenses",expensesController.getAllExpenses);
 app.post("/expenses", expensesController.saveExpense);
+
+app.get("/documents", documentsController.getAllDocuments);
+app.post("/documents", documentsController.saveDocuments);
 
 
 app.use(errorController.pageNotFoundError);
