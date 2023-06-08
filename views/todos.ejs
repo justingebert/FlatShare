@@ -4,9 +4,9 @@
 <div>
     <div>Important</div> 
     <% todos.forEach(todo=> { %>
-        <h5><%= todo.name %>
+        <h5 class=" px-3 border-2 border-black "><%= todo.name %>
         <% let checked = todo.completed ? "checked" : "" %>
-        <input type="checkbox" <%= checked %> />
+        <input type="checkbox" class="px-3 border-2"<%= checked %> />
     <% }); %>
 </div>
 
