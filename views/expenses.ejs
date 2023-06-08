@@ -1,26 +1,28 @@
-<div>
-    <h3>All your expenses:</h3>
-      <% expenses.forEach(expense => { %>
-      <div> expense title: <%= expense.title %></div>
-      <div>expense amount:</div> <%= expense.amount %></div>
-      <div>expense paid by:</div> <%= expense.paidBy %></div>
-       <% }); %>
-  </div>
+<div class="container mx-auto p-4">
+  <h3 class="text-xl font-bold mb-4">All your expenses:</h3>
+  <% expenses.forEach(expense => { %>
+    <div>
+      <div class="mb-2">Expense Title: <%= expense.title %></div>
+      <div class="mb-2">Expense Amount: <%= expense.amount %></div>
+      <div class="mb-4">Expense Paid by: <%= expense.paidBy %></div>
+    </div>
+  <% }); %>
+</div>
 
-
-  <div class="list-container">
-    <h3>Add your expense</h3>
-    <form action="/expenses" method="post">
-    <label for="title">Title:</label><br>
-    <input type="text" name="title" placeholder "Title"><br>
-    <label for="amount">Amount:</label><br>
-    <input type="text" name="amount" placeholder "Amount"><br>
-    <label for="paidBy">Paid by:</label><br>
-    <input type="text" name="paidBy" placeholder "PaidBy"><br>
-    <input type="submit" name="submit">
+<div class="container mx-auto p-4">
+  <h3 class="text-xl font-bold mb-4">Add your expense</h3>
+  <form action="/expenses" method="post">
+    <label for="title" class="mb-2">Title:</label><br>
+    <input type="text" name="title" placeholder="Title" class="border p-2 mb-2" required><br>
+    <label for="amount" class="mb-2">Amount:</label><br>
+    <input type="text" name="amount" placeholder="Amount" class="border p-2 mb-2" required><br>
+    <label for="paidBy" class="mb-2">Paid by:</label><br>
+    <input type="text" name="paidBy" placeholder="PaidBy" class="border p-2 mb-2" required><br>
+    <input type="submit" name="submit" value="Submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" />
   </form>
-  </div>
+</div>
 
-  <div class="sum-up-your-expenses-container"> 
-<h3>Sum up your Expenses</h3>
-  </div>
+<div class="container mx-auto p-4">
+  <h3 class="text-xl font-bold mb-4">Sum up your Expenses</h3>
+  <!-- Add your code for summing up the expenses here -->
+</div>

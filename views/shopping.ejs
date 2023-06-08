@@ -1,18 +1,26 @@
-
-<br>
-<br>
-<div>
-    <div>Shopping List</div> 
-    <% shopping.forEach(shopping=> { %>
-        <h5><%= shopping.item %>
-        <h6><%= shopping.quantity %>
-    <% }); %> 
-</div>
-
-<div>
-    <form action="/shopping" method="post">
-        input item: <input type="text" name="item" />
-        how many? <input type="number" name="quantity" min="0" max="100" step="1">
-        <input type="submit" name="submit">
+<div class="container mx-auto p-4">
+    <h2 class="text-3xl font-bold mb-4">Shopping List</h2>
+    <div>
+      <% shopping.forEach(shopping => { %>
+        <div class="flex items-center mb-2">
+          <h5 class="mr-2"><%= shopping.item %></h5>
+          <h6><%= shopping.quantity %></h6>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+  
+  <div class="container mx-auto p-4">
+    <form action="/shopping" method="post" class="flex items-center">
+      <div class="mr-4">
+        <label class="block mb-2">Input Item:</label>
+        <input type="text" name="item" class="border p-2" />
+      </div>
+      <div class="mr-4">
+        <label class="block mb-2">How Many?</label>
+        <input type="number" name="quantity" min="0" max="100" step="1" class="border p-2" />
+      </div>
+      <input type="submit" name="submit" value="Submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" />
     </form>
-</div> 
+  </div>
+  
