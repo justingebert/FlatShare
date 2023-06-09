@@ -11,7 +11,6 @@ const layouts = require("express-ejs-layouts");
 const expensesController = require("./controllers/expensesController");
 const mongoose = require("mongoose").default;
 const method = require("method-override");
-//const Shopping = require("./models/shopping");  
 
 mongoose.Promise= global.Promise
 mongoose.connect(
@@ -61,9 +60,10 @@ app.get("/subscribers", subscribersController.getAllSubscribers, (req:Request, r
 });
 */ 
 
+/*
 app.get("/shopping", shoppingController.getAllShopping);
 app.post("/shopping", shoppingController.saveShopping);
-
+*/
 
 app.get("/todos", todoController.getAllTodos);
 app.post("/todos", todoController.saveTodo);
