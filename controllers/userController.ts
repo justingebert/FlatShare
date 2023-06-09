@@ -1,5 +1,17 @@
 const User = require("../data/models/user");
 
+const getUserParams = (body:any) => {
+    return {
+        name: {
+            first: body.first,
+            last: body.last
+        },
+        email: body.email,
+        password: body.password
+    }
+}
+
+
 module.exports = {
     index: async (req:any, res:any, next:any) => {
         let users = await User.find({})
@@ -38,6 +50,34 @@ module.exports = {
                 console.log(`Error saving user: ${error.message}`);
                 next(error);
               })
+    },
+    update: async (req:any, res:any, next:any) => {
+        const userId = req.params.id;
+        const userParams = getUserParams(req.body);
+        User.findByIdAndUpdate(userId, {
+            $set: userParams
+        })
+        .then((user:any) => {
+            res.locals.redirect = "/user"
+            res.locals.user = user
+            next();
+        })
+        .catch((error:Error) => {
+            console.log(`Error updating user by ID: ${error.message}`);
+            next(error);
+        });
+    },
+    delete: async (req:any, res:any, next:any) => {
+        const userId = req.params.id;
+        User.findByIdAndRemove(userId)
+            .then(() => {
+                res.locals.redirect = "/user"
+                next();
+            })
+            .catch((error:Error) => {
+                console.log(`Error deleting user by ID: ${error.message}`);
+                next();
+            });
     },
     redirectView: (req:any, res:any, next:any) => {
         let redirectPath = res.locals.redirect;

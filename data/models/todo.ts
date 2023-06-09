@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 interface ITodo {
     name: string;
+    description: string;
+    dueDate: Date;
     completed: boolean;
 }
 
@@ -14,6 +16,12 @@ const todoSchema = new mongoose.Schema({
     name: {
         type: String,
         required: "Name cannot be blank!"
+    },
+    description: {
+        type: String,
+    },
+    dueDate: {
+        type: Date,
     },
     completed: {
         type: Boolean,
