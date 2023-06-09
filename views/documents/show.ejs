@@ -1,0 +1,23 @@
+<h1>Document Title: <%= documents.title %>
+  </h1>
+  <table class="table">
+    <tr>
+      <th>Author</th>
+      <td>
+        <%= documents.author %>
+      </td>
+    </tr>
+    <tr>
+      <th>CreatedAt</th>
+      <td>
+        <%= documents.createdAt %>
+      </td>
+    </tr>
+    <tr>
+      <th>Document</th>
+      <td>
+        <embed src="<%= documents.path %>" type="application/pdf" width="100%" height="600px" />
+      </td>
+    </tr>
+  </table>
+  

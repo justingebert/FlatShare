@@ -1,0 +1,33 @@
+<h2>Documents Table</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Path</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% documents.forEach(documents => { %>
+    <tr>
+      <td>
+        <a href="<%= `/documents/${documents._id}` %>">
+          <%= documents.title %>
+        </a>
+      </td>
+      <td>
+        <%= documents.path %>
+      </td>
+      <td>
+        <%= documents.category %>
+      </td>
+      <td>
+        <a href="<%= `documents/${documents._id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure you want to delete this record?')" a>Delete</a>
+      </td>
+    </tr>
+    <% }); %>
+    <div class="center">
+      <a class="button" href="/documents/show">Create Document</a>
+    </div>
+  </tbody>
+</table>

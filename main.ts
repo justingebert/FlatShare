@@ -38,6 +38,13 @@ app.get("/users/new", userController.new);
 app.post("/users/create", userController.create, userController.redirectView);
 app.get("/users/:id", userController.show, userController.showView);
 
+app.get("/documents", documentsController.index, documentsController.indexView);
+app.get("/documents/new", documentsController.new);
+app.post("/documents/create", documentsController.create, documentsController.redirectView);
+app.put("/documents/:id/update", documentsController.update, documentsController.redirectView);
+app.get("/documents/:id", documentsController.show, documentsController.showView);
+app.delete("/documents/:id/delete", documentsController.delete, documentsController.redirectView);
+
 //app.get("/todos", homeController.showTodos);
 app.get("/chat", (req:Request, res:Response,) => {
     res.render("chat")
@@ -61,9 +68,10 @@ app.post("/todos", todoController.saveTodo);
 app.get("/expenses",expensesController.getAllExpenses);
 app.post("/expenses", expensesController.saveExpense);
 
+/*
 app.get("/documents", documentsController.getAllDocuments);
 app.post("/documents", documentsController.saveDocuments);
-
+*/
 
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
