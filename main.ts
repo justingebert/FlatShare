@@ -46,7 +46,7 @@ app.post("/shopping/create", shoppingController.create, shoppingController.redir
 app.get("/shopping/:id", shoppingController.show, shoppingController.showView);
 app.get("/shopping/:id/edit", shoppingController.edit); 
 app.put("/shopping/:id/update", shoppingController.update, shoppingController.redirectView);
-app.delete("/shopping/:id/delete",shoppingController.delete, shoppingController.redirectView);
+app.delete("/shopping/:id/delete", shoppingController.delete, shoppingController.redirectView);
 
 //app.get("/todos", homeController.showTodos);
 app.get("/chat", (req:Request, res:Response,) => {

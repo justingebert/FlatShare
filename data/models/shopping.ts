@@ -3,8 +3,7 @@ import { Int32 } from "mongodb";
 
 const mongoose = require("mongoose");
 
-{ Schema } = mongoose,
-shoppingSchema = new Schema({
+const shoppingSchema = mongoose.Schema({
     item: {
         type: String, 
         required: true

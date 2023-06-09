@@ -81,7 +81,7 @@ module.exports = {
             Shopping.findByIdAndUpdate(itemId, {
                 $set: itemParams
                 })
-                .then(shopping => {
+                .then(shopping => { 
                     res.locals.redirect = `/shopping/${itemId}`;
                     res.locals.shopping = shopping;
                     next();
