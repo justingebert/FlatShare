@@ -1,0 +1,16 @@
+<h1>Shopping List</h1>
+<table> <tr>
+        <th>Items</th>
+        <td><% shopping.forEach(shopping => { %>
+            <h5><%= shopping.item %></h5>
+        <% }); %>
+        </td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td><% shopping.forEach(shopping => { %>
+            <h6><%= shopping.quantity %></h6>
+            <% }); %>
+        </td>
+    </tr> 
+</table>

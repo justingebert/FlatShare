@@ -1,0 +1,35 @@
+<h2>Shopping List Table</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% shopping.forEach(shopping => { %>
+    <tr>
+      <td>
+        <a href="<%= `/shopping/${shopping._id}` %>">
+          <%= shopping.item %>
+        </a>
+      </td>
+      <td>
+        <%= shopping.quantity %>
+      </td>
+      <td>
+        <a href="<%= `/shopping/${shopping._id}/edit` %>">
+          Edit
+        </a>
+      </td>
+      <td>
+        <a href="<%= `/shopping/${shopping._id}/delete?_method=DELETE` %>" ➥ onclick="return confirm('Are you sure you want to delete this Item?')">
+            Delete
+        </a>
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
