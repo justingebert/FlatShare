@@ -31,7 +31,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(layouts)
 app.use(express.static("public"));
 
-app.use(methodOverride("_method", {methods: ["POST", "GET"]}));
+
+//app.use(methodOverride("_method", {methods: ["POST", "GET"]}));
 
 app.get('/', homeController.showHome);
 
@@ -45,8 +46,8 @@ app.get("/shopping/new", shoppingController.new);
 app.post("/shopping/create", shoppingController.create, shoppingController.redirectView);
 app.get("/shopping/:id", shoppingController.show, shoppingController.showView);
 app.get("/shopping/:id/edit", shoppingController.edit); 
-app.put("/shopping/:id/update", shoppingController.update, shoppingController.redirectView);
-app.delete("/shopping/:id/delete", shoppingController.delete, shoppingController.redirectView);
+app.post("/shopping/:id/update", shoppingController.update, shoppingController.redirectView);
+app.get("/shopping/:id/delete", shoppingController.delete, shoppingController.redirectView);
 
 //app.get("/todos", homeController.showTodos);
 app.get("/chat", (req:Request, res:Response,) => {

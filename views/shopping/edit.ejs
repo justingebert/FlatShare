@@ -1,8 +1,8 @@
-<form action="<%=`/shopping/${shopping._id}/update?_method=PUT` %>" method="POST"></form>
+<form action="<%=`/shopping/${shopresult._id}/update` %>" method="POST"></form>
 <h2>Edit your Item:</h2>
 <label for="inputItem">Item</label>
-<input type="text" name="item" id="inputItem" value="<%=shopping.item %>" placeholder="Item" autofocus>
+<input type="text" name="item" id="inputItem" value="<%=shopresult.item %>" placeholder="Item" autofocus>
 <label for="inputQuantity">Quantity</label>
-<input type="number" name="quantity" min="1" max="100" step="1" id="inputQuantity" value="<%=shopping.quantity %>">
+<input type="number" name="quantity" min="1" max="100" step="1" id="inputQuantity" value="<%=shopresult.quantity %>">
 <button type="submit">Save changes</button>
 </form>

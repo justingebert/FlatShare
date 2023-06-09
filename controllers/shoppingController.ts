@@ -59,17 +59,19 @@ module.exports = {
         res.render("shopping/show");
       },
         edit: (req:any, res:any, next:any) => {
+            console.log("starting edit");
             var itemId = req.params.id;
+            console.log(itemId);
             Shopping.findById(itemId)
-                .then(item => {
-                    res.render("shopping/edit", {
-                        Item: item 
-                    });
+                .then((shoppingdb:any) => {
+                    res.locals.shopresult = shoppingdb;
+                    res.render("shopping/edit");
                 })
-                .catch(error => {
+                .catch((error:any) => {
                     console.log(`Error fetching Item by ID:${error.message}`); 
                     next(error);
                 }); 
+            console.log("finishing edit");
         },
 
         update: (req:any, res:any, next:any) => {
@@ -81,27 +83,30 @@ module.exports = {
             Shopping.findByIdAndUpdate(itemId, {
                 $set: itemParams
                 })
-                .then(shopping => { 
+                .then((shopping:any) => { 
                     res.locals.redirect = `/shopping/${itemId}`;
                     res.locals.shopping = shopping;
                     next();
                 })
-                .catch(error => {console.log(`Error updating shopping by ID: ${error.message}`);
+                .catch((error:any) => {console.log(`Error updating shopping by ID: ${error.message}`);
                     next(error);
                 });
         },
 
         delete: (req:any, res:any, next:any) => {
+            console.log("starting delete");
             let itemId = req.params.id;
+
             Shopping.findByIdAndRemove(itemId)
                 .then(() => {
                     res.locals.redirect = "/shopping";
                     next();
                 })
-                .catch(error => {
+                .catch((error:any) => {
                     console.log(`Error deleting item by ID: ${error.message}`);
                     next(); 
                 });
+                console.log("finishing delete");
         } 
     
     };
