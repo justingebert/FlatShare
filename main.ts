@@ -23,6 +23,8 @@ db.once("open", () => {
     console.log("Successfully connected to MongoDB using Mongoose!");
 })
 
+const router = express.Router();
+app.use("/", router);
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
 app.use(express.json());
@@ -31,7 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(layouts)
 app.use(express.static("public"));
 
-app.get('/', homeController.showHome);
+//app.get('/', homeController.showHome);
 
 app.get("/users", userController.index, userController.indexView);
 app.get("/users/new", userController.new);
@@ -57,9 +59,18 @@ app.post("/shopping", shoppingController.saveShopping);
 app.get("/todos", todoController.getAllTodos);
 app.post("/todos", todoController.saveTodo);
 
+const methodOverride = require("method-override");
+router.use(methodOverride("_method", {
+methods: ["POST", "GET"]
+}));
 
-app.get("/expenses",expensesController.getAllExpenses);
-app.post("/expenses", expensesController.saveExpense);
+router.get("/expenses",expensesController.index, expensesController.indexView);
+router.get("/expenses/new", expensesController.new);
+router.post("/expenses/create", expensesController.create, expensesController.redirectView);
+router.get("/expenses/:id/edit", expensesController.edit);
+router.put("/expenses/:id/update", expensesController.update, expensesController.redirectView);
+router.get("/expenses/:id", expensesController.show, expensesController.showView);
+router.delete("/expenses/:id/delete", expensesController.delete, expensesController.redirectView);
 
 app.get("/documents", documentsController.getAllDocuments);
 app.post("/documents", documentsController.saveDocuments);

@@ -49,6 +49,11 @@ let tasks = [
     { name: "Task 3", date: "2021-01-03", completed: false },
 ]
 
+let expenses = [
+    { title: "weekly shopping", amount: "23", paidBy: "Nora" },
+    { title: "all we need", amount: "210", paidBy: "Jacob" }
+]
+
 
 export {
     todos,
@@ -57,5 +62,6 @@ export {
     people,
     events,
     bills,
-    tasks
+    tasks,
+    expenses
 }

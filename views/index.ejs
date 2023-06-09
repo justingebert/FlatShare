@@ -67,4 +67,15 @@
         </div>
     <% }); %>
 </div>
+<div>
+    <div>Expenses</div> 
+    <% expenses.forEach(expense=> { %>
+        <div> 
+            <h5><%= expense.title %>
+            <div><%= expense.amount %></div>
+            <div><%= expense.paidBy %></div>
+            <button>submit</button>
+        </div>
+    <% }); %>
+</div>
 
