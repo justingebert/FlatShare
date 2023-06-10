@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const Todo = require("./models/todo");
+const Expense =require("./models/expense");
 
-// connect to mongodb
 
-
-let testUser, testTodo;
+let testUser, testTodo, testExpense;
 
 mongoose.Promise = global.Promise;
 mongoose.connect(

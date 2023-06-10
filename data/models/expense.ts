@@ -1,5 +1,7 @@
 import { Int32 } from "mongodb";
 const mongoose = require("mongoose");
+//const User = require("./user")
+
 const expenseSchema = mongoose.Schema({
 title: {
     type: String,
@@ -15,12 +17,13 @@ paidBy: {
 }
 });
 
-expenseSchema.method.sumUpExpenses = function() {
+/*expenseSchema.method.sumUpExpenses = function() {
     return this.model("Expense")
     .find({paidBy: this.paidBy})
     .exec();
-};
+};*/
 
+//users:[{type: mongoose.Schema.Types.ObjectId, ref: "User"}]
 
 
 module.exports = mongoose.model("Expense", expenseSchema);
