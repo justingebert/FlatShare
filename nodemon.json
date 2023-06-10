@@ -1,0 +1,7 @@
+{
+    "watch": ["public/css/"],
+    "ext": ".css",
+    "execMap": {
+      "css": "postcss public/css/tailwind.css -w -o public/css/styles.css"
+    }
+  }

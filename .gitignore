@@ -130,4 +130,6 @@ dist
 .pnp.*
 
 *.js
+
+!*.config.js
 !repl_testing.js

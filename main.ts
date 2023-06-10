@@ -45,19 +45,13 @@ app.get("/chat", (req:Request, res:Response,) => {
     res.render("chat")
     }
 );
-/*
-app.get("/subscribers", subscribersController.getAllSubscribers, (req:Request, res:Response, next) => { 
-    console.log(req.data);
-    res.send(req.data);
-});
-*/ 
+
 
 app.get("/shopping", shoppingController.getAllShopping);
 app.post("/shopping", shoppingController.saveShopping);
 
-
-app.get("/todos", todoController.getAllTodos);
-app.post("/todos", todoController.saveTodo);
+app.get("/todos", todoController.index, todoController.indexView);
+app.post("/todos", todoController.create, todoController.redirectView);
 
 const methodOverride = require("method-override");
 router.use(methodOverride("_method", {

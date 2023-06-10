@@ -1,7 +1,7 @@
 import { Int32 } from "mongodb";
-
 const mongoose = require("mongoose");
 
+const Todo = require("./todo");
   
 const userSchema = mongoose.Schema({
     name: {
@@ -40,5 +40,21 @@ const userSchema = mongoose.Schema({
 userSchema.virtual("fullName").get(function(this: any) {
         return `${this.name.first} ${this.name.last}`;
 });
+
+userSchema.pre("save", function(next:any) {
+    let user = this;
+    if (user.todos.length < 1) {
+        Todo.findAll({
+            user: user._id
+        })
+        .then((todos:any) => {
+            user.todos = todos;
+            next();
+        })
+    } else {
+        next();
+    }
+});
+
 
 module.exports = mongoose.model("User", userSchema);

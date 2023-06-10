@@ -7,8 +7,10 @@
 - Open another Terminal and type: npm run start (This starts the Server)
 - Ready to go
 
-
 ## learning docu
 
 mongoose:
 push -> save -> populate : to get the whole object with associated objects
+
+
+browser refresh on tailwind change -> browser-sync start --server --files "path/to/your/css/**/*.css" --no-open
