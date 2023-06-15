@@ -1,0 +1,13 @@
+<input type="text" name="title" id="inputTitle" value="<%= expense.title %>" placeholder="Title" autofocus>
+<div class="data-form">
+    <form method="POST" action="<%=`/expenses/${expense._id}/update?_method=PUT`%>">
+        <h2>Edit expense:</h2>
+        <label for="inputTitle">Title</label>
+        <input type="title" name="title" id="inputTitle" value="<%=expense.title %>" placeholder="Title" required>
+        <label for="inputAmount">Amount</label>
+        <input type="amount" name="amount" id="inputAmount" value="<%= expense.amount %>" placeholder="Amount" required>
+        <label for="inputPaidBy">paid By</label>
+        <input type="text" name="paidBy" id="inputPaidBy" value="<%= expense.paidBy %>" placeholder="PaidBy" required>
+        <button type="submit">Update</button>
+    </form>
+</div>

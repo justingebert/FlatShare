@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { todos, rooms, shoppingList, people, events, bills, tasks} from "../data/data"
+import { todos, rooms, shoppingList, people, events, bills, tasks, expenses} from "../data/data"
 
 
 exports.showHome = (req:Request, res:Response) => {
@@ -10,6 +10,7 @@ exports.showHome = (req:Request, res:Response) => {
             people: people,
             events: events,
             bills: bills,
-            tasks: tasks
+            tasks: tasks,
+            expenses: expenses
     })
 }
