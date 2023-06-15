@@ -10,14 +10,14 @@ const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
 const expensesController = require("./controllers/expensesController");
 const mongoose = require("mongoose").default;
-//const Shopping = require("./models/shopping");  
+const method = require("method-override");
 
 mongoose.Promise= global.Promise
 mongoose.connect(
     "mongodb://localhost:27017/flatshare", 
     {useNewUrlParser: true,}
 );
-
+ 
 const db = mongoose.connection;
 db.once("open", () => {
     console.log("Successfully connected to MongoDB using Mongoose!");
@@ -33,12 +33,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(layouts)
 app.use(express.static("public"));
 
-//app.get('/', homeController.showHome);
+
+//app.use(methodOverride("_method", {methods: ["POST", "GET"]}));
+
+app.get('/', homeController.showHome);
 
 app.get("/users", userController.index, userController.indexView);
 app.get("/users/new", userController.new);
 app.post("/users/create", userController.create, userController.redirectView);
 app.get("/users/:id", userController.show, userController.showView);
+
+app.get("/shopping", shoppingController.index, shoppingController.indexView);
+app.get("/shopping/new", shoppingController.new);
+app.post("/shopping/create", shoppingController.create, shoppingController.redirectView);
+app.get("/shopping/:id", shoppingController.show, shoppingController.showView);
+app.get("/shopping/:id/edit", shoppingController.edit); 
+app.post("/shopping/:id/update", shoppingController.update, shoppingController.redirectView);
+app.get("/shopping/:id/delete", shoppingController.delete, shoppingController.redirectView);
 
 //app.get("/todos", homeController.showTodos);
 app.get("/chat", (req:Request, res:Response,) => {
@@ -47,8 +58,10 @@ app.get("/chat", (req:Request, res:Response,) => {
 );
 
 
+/*
 app.get("/shopping", shoppingController.getAllShopping);
 app.post("/shopping", shoppingController.saveShopping);
+*/
 
 app.get("/todos", todoController.index, todoController.indexView);
 app.post("/todos", todoController.create, todoController.redirectView);
