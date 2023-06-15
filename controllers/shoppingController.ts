@@ -75,6 +75,7 @@ module.exports = {
         },
 
         update: (req:any, res:any, next:any) => {
+            console.log("starting update");
             let itemId = req.params.id;
             let itemParams = {
                 item:req.body.item,
@@ -84,13 +85,14 @@ module.exports = {
                 $set: itemParams
                 })
                 .then((shopping:any) => { 
-                    res.locals.redirect = `/shopping/${itemId}`;
+                    res.locals.redirect = `/shopping`;
                     res.locals.shopping = shopping;
                     next();
                 })
                 .catch((error:any) => {console.log(`Error updating shopping by ID: ${error.message}`);
                     next(error);
                 });
+                console.log("finishing update");
         },
 
         delete: (req:any, res:any, next:any) => {
