@@ -1,9 +1,19 @@
-import { NextFunction } from "express"; 
+import { NextFunction, Request, Response } from "express";
+import { constants } from "zlib";
 
-const Expense = require("../data/models/expense");
+const Expense = require("../data/models/expense"),
+
+getExpenseParams = (body:any) => {
+    return {
+        title: body.title,
+        amount: body.amount,
+        paidBy: body.paidBy
+    };
+};
+
 
 module.exports = {
-    index: (req:any, res:any, next:any) => {
+    index: (req:Request, res:Response, next:NextFunction) => {
         Expense.find()
         .then((expenses:any) => {
             res.locals.expense = expenses;
@@ -14,21 +24,17 @@ module.exports = {
             next(error);
           });
     },
-    indexView: (req:any, res:any) => {
+    indexView: (req:Request, res:Response) => {
         res.render("expense/index");
       },
-    new: (req:any,res:any) => {
+    new: (req:Request,res:Response) => {
         res.render("expense/new");
     },
-    create: (req:any,res:any, next:any) => {
-        let expenseParams = {
-            title: req.body.title,
-            amount: req.body.amount,
-            paidBy: req.body.paidBy
-        };
-    Expense.create(expenseParams)
+    create: (req:Request,res:Response, next:NextFunction) => {
+        let expenseParams = getExpenseParams(req.body);
+        Expense.create(expenseParams)
         .then((expense: any) => {
-            res.locals.redirect = "/expenses";
+            res.locals.redirect = "/expense";
             res.locals.expense = expense;
             next();
         })
@@ -37,12 +43,12 @@ module.exports = {
             next(error);
         });
     },
-    redirectView: (req:any, res:any, next:any) => {
+    redirectView: (req:Request, res:Response, next:NextFunction) => {
         let redirectPath = res.locals.redirect;
         if (redirectPath) res.redirect(redirectPath);
         else next();
     },
-    show: (req:any, res:any, next:any) => {
+    show: (req:Request, res:Response, next:NextFunction) => {
         let expenseId = req.params.id;
         Expense.findById(expenseId)
         .then((expense: any) => {
@@ -54,11 +60,11 @@ module.exports = {
             next(error);
         });
     },
-    showView: (req:any, res:any) => {
+    showView: (req:Request, res:Response) => {
         res.render("expense/show");
     },
-    edit: (req:any, res:any, next:any) => {
-        let expenseId = req.params.expenseid;
+    edit: (req:Request, res:Response, next:NextFunction) => {
+        let expenseId = req.params.id;
         Expense.findById(expenseId)
         .then((expense: any) => {
             res.render("expense/edit", {
@@ -70,18 +76,14 @@ module.exports = {
             next(error);
         });
     },
-    update: (req:any, res:any, next:any) => {
-        let expenseId = req.params.id,
-        expenseParams = {
-            title: req.body.title,
-            amount: req.body.amount,
-            paidBy: req.body.paydBy
-        };
+    update: async (req:Request, res:Response, next:NextFunction) => {
+        const expenseId = req.params.id;
+        const expenseParams = getExpenseParams(req.body);
         Expense.findByIdAndUpdate(expenseId, {
         $set: expenseParams
         })
         .then((expense: any) => {
-            res.locals.redirect = `/expense/${expenseId}`;
+            res.locals.redirect = `/expenses/`;
             res.locals.expense = expense;
             next();
         })
@@ -90,20 +92,15 @@ module.exports = {
             next(error);
         });
     },
-    delete: (res:any, req: any, next: any) => {
-        let expenseId = req.params.id;
-        Expense.findByIdAndRemove(expenseId)
-        .then(() => {    
-            res.locals.redirect = "/expense";
-            next();
-        })
-        .catch((error:Error) => {
-            console.log(`Error deleting user by ID: ${error.message}`);
-            next();
-        });
+    delete: async (req: Request, res:Response, next:NextFunction) => {
+        const expenseId = req.params.expenseId;
+      Expense.findByIdAndRemove(expenseId)
+      .then(() => {
+        res.locals.redirect = "/expenses"
+        next();
+      })
     },
-
-    sumExpenses: (req:any, res:any) => {
+    sumExpenses: (req:Request, res:Response) => {
         const userId = req.params.userId;
 
         Expense.find({ paidBy: userId })
@@ -117,6 +114,6 @@ module.exports = {
           console.error(`Error fetching expenses for user ${userId}: ${error.message}`);
           res.status(500).json({ error: `Error fetching expenses for user ${userId}` });
         });
-    },
+    }
 
     };

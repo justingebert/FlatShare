@@ -53,18 +53,12 @@ app.post("/shopping", shoppingController.saveShopping);
 app.get("/todos", todoController.index, todoController.indexView);
 app.post("/todos", todoController.create, todoController.redirectView);
 
-const methodOverride = require("method-override");
-router.use(methodOverride("_method", {
-methods: ["POST", "GET"]
-}));
-
-router.get("/expenses",expensesController.index, expensesController.indexView);
-router.get("/expenses/new", expensesController.new);
-router.post("/expenses/create", expensesController.create, expensesController.redirectView);
-router.get("/expenses/:id/edit", expensesController.edit);
-router.put("/expenses/:id/update", expensesController.update, expensesController.redirectView);
-router.get("/expenses/:id", expensesController.show, expensesController.showView);
-router.delete("/expenses/:id/delete", expensesController.delete, expensesController.redirectView);
+app.get("/expenses/new", expensesController.new);
+app.post("/expenses/create", expensesController.create, expensesController.redirectView);
+app.get("/expenses/:id/edit", expensesController.edit);
+app.put("/expenses/:id/update", expensesController.update, expensesController.redirectView);
+app.get("/expenses/:id", expensesController.show, expensesController.showView);
+app.delete("/expenses/:id/delete", expensesController.delete, expensesController.redirectView);
 
 app.get("/documents", documentsController.getAllDocuments);
 app.post("/documents", documentsController.saveDocuments);

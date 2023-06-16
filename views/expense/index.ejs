@@ -22,11 +22,6 @@
         <%= expense.paidBy %>
       </td>
       <td>
-        <a href="<%= `/expenses/${expense._id}/edit` %>">
-          <%= expense.title %>
-        </a>
-      </td>
-      <td>
         <a href="<%= `expenses/${expense._id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
       </td>
     </tr>

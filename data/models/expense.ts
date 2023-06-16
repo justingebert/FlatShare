@@ -1,8 +1,9 @@
 import { Int32 } from "mongodb";
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"),
 //const User = require("./user")
+{ Schema } = mongoose;
 
-const expenseSchema = mongoose.Schema({
+var expenseSchema = new Schema({
 title: {
     type: String,
     required:true
