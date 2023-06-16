@@ -29,12 +29,17 @@ module.exports = {
         }
         Shopping.create(shopping)
             .then((shopping:any) => {
+                req.flash("success", `${shopping.item}' item added successfully!`);
                 res.locals.redirect = "/shopping"
                 res.locals.shopping = shopping
                 next()
             })
             .catch((error:Error) => {
                 console.log(`Error saving shopping: ${error.message}`);
+                req.flash(
+                    "error",
+                    `Failed to create item because: ${error.message}.`
+                    );
                 next(error);
               })
     },

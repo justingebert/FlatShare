@@ -37,6 +37,14 @@ router.use(expressSession({
   saveUninitialized: false
 }));
 router.use(connectFlash());
+router.use((req:any, res:any, next:any) => {
+    res.locals.flashMessages = req.flash();
+    next();
+});
+
+//login stuff
+router.get("/users/login", userController.login);
+router.post("/users/login", userController.authenticate, userController.redirectView);
 
 app.use("/", router);
 app.set("view engine", "ejs");
