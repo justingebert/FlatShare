@@ -11,6 +11,9 @@ const layouts = require("express-ejs-layouts");
 const expensesController = require("./controllers/expensesController");
 const mongoose = require("mongoose").default;
 const method = require("method-override");
+const connectFlash = require("connect-flash");
+const cookieParser = require("cookie-parser");
+const expressSession = require("express-session"); 
 
 mongoose.Promise= global.Promise
 mongoose.connect(
@@ -24,6 +27,17 @@ db.once("open", () => {
 })
 
 const router = express.Router();
+router.use(cookieParser("secret_passcode"));
+router.use(expressSession({
+  secret: "secret_passcode",
+  cookie: {
+    maxAge: 4000000
+  },
+  resave: false,
+  saveUninitialized: false
+}));
+router.use(connectFlash());
+
 app.use("/", router);
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
