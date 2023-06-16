@@ -10,6 +10,8 @@ const errorController = require("./controllers/errorController");
 const layouts = require("express-ejs-layouts");
 const expensesController = require("./controllers/expensesController");
 const mongoose = require("mongoose").default;
+const methodOverride = require('method-override');
+
 //const Shopping = require("./models/shopping");  
 
 mongoose.Promise= global.Promise
@@ -25,6 +27,13 @@ db.once("open", () => {
 
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
+
+app.use(
+    methodOverride("_method", {
+      methods: ["POST", "GET"]
+    })
+  );
+  
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

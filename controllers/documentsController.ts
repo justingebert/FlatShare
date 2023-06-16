@@ -7,7 +7,6 @@ const getDocumentParams = (body:any) => {
       title: body.title,
       path: body.path,
       category: body.category,
-      author: body.author
     };
   };
 
@@ -36,7 +35,7 @@ module.exports = {
         let documentParams = getDocumentParams(req.body);
         Documents.create(documentParams)
           .then((document:any) => {
-            res.locals.redirect = "/documents";
+            res.locals.redirect = "documents";
             res.locals.document = document;
             next();
           })
@@ -66,7 +65,7 @@ module.exports = {
       },
     
       showView: (req:any, res:any) => {
-        res.render("documents/show");
+        res.render("/documents/show");
       },
     
       update: (req:any, res:any, next:any) => {
@@ -92,8 +91,8 @@ module.exports = {
       },
     
       delete: (req:any, res:any, next:any) => {
-        let documentId = req.params.id;
-        Documents.findByIdAndRemove(documentId)
+        let documentsId = req.params.id;
+        Documents.findByIdAndRemove(documentsId)
           .then(() => {
             res.locals.redirect = "/documents";
             next();
