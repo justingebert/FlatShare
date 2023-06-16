@@ -1,6 +1,4 @@
-//const mongoose = require("mongoose");
-import mongoose from "mongoose";
-
+const mongoose = require("mongoose");
 
 interface ITodo {
     name: string;

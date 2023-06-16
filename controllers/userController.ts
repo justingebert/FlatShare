@@ -1,3 +1,5 @@
+import { Console } from "console";
+
 const User = require("../data/models/user");
 
 const getUserParams = (body:any) => {
@@ -25,13 +27,17 @@ module.exports = {
         );
     },
     indexView: (req:any, res:any) => {
-        res.render("user/index");
+        res.render("user/index", {
+            flashMessages: {
+              success: "Loaded all users!"
+            }
+          });
     },
     new: (req:any, res:any) => {
         res.render("user/new");
     },
-    
     create: async (req:any, res:any, next:any) => {
+        console.log("starting create")
         let user = {
             name:{
                 first: req.body.first,
@@ -42,14 +48,18 @@ module.exports = {
         }
         User.create(user)
             .then((user:any) => {
-                res.locals.redirect = "/user"
+                req.flash("success", `${user.fullName}'s account created successfully!`)
+                res.locals.redirect = `/user/${user._id}`
                 res.locals.user = user
                 next()
             })
             .catch((error:Error) => {
                 console.log(`Error saving user: ${error.message}`);
-                next(error);
+                res.locals.redirect = "/user/new"
+                req.flash("error", `Failed to create user account because: ${error.message}.`)
+                next();
               })
+            console.log("ending create")
     },
     update: async (req:any, res:any, next:any) => {
         const userId = req.params.id;
@@ -58,11 +68,13 @@ module.exports = {
             $set: userParams
         })
         .then((user:any) => {
-            res.locals.redirect = "/user"
+            req.flash("success", `${user.fullName}'s account updated successfully!`)
+            res.locals.redirect = "/users"
             res.locals.user = user
             next();
         })
         .catch((error:Error) => {
+            req.flash("error", `Failed to update user account because: ${error.message}.`)
             console.log(`Error updating user by ID: ${error.message}`);
             next(error);
         });

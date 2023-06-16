@@ -44,7 +44,8 @@ userSchema.virtual("fullName").get(function(this: any) {
 userSchema.pre("save", function(next:any) {
     let user = this;
     if (user.todos.length < 1) {
-        Todo.findAll({
+
+        Todo.find({
             user: user._id
         })
         .then((todos:any) => {
