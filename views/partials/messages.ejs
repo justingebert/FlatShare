@@ -1,0 +1,16 @@
+<div class="flashes">
+    <% if (flashMessages) { %>
+        <% if(flashMessages.success) { %>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Success!</strong> <%= flashMessages.success %>
+            </div>
+        <% } %>
+        <% if(flashMessages.error) { %>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Error!</strong> <%= flashMessages.error %>
+            </div>
+        <% } %>
+    <% } %>
+</div>

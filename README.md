@@ -1,5 +1,9 @@
 # FlatShare
 
+# backlog:
+
+backlog is in the Github repository as a project board. The project board is named Flat-Share and can be found [https://github.com/users/justingebert/projects/3/views/1]
+
 ## start developing
 
 - pull Repo -> npm i
@@ -11,6 +15,5 @@
 
 mongoose:
 push -> save -> populate : to get the whole object with associated objects
-
 
 browser refresh on tailwind change -> browser-sync start --server --files "path/to/your/css/**/*.css" --no-open
