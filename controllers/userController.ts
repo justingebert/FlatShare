@@ -110,5 +110,56 @@ module.exports = {
       },
       showView: (req:any, res:any) => {
         res.render("user/show");
-      }
+      },
+    login: (req:any, res:any) => {
+        res.render("user/login");
+    },
+    authenticate: (req:any, res:any, next:any) => {
+        User.findOne({
+            email: req.body.email
+        })
+        .then((user:any) => {
+            if (user) {
+                user.passwordComparison(req.body.password)
+                .then((passwordsMatch:any) => {
+                    if (passwordsMatch) {
+                        res.locals.redirect = `/user/${user._id}`;
+                        req.flash("success", `${user.fullName}'s logged in successfully!`);
+                        res.locals.user = user;
+                    } else {
+                        
+                        req.flash("error", "Failed to log in user account: Incorrect Password");
+                        res.locals.redirect = "/users/login";
+                    }
+                    next();
+                });
+            } else {
+                req.flash("error", "Failed to log in user account: User account not found");
+                res.locals.redirect = "/user/login";
+                next();
+            }
+        })
+            .catch((error:Error) => {
+                console.log(`Error logging in user: ${error.message}`);
+                next(error);
+            });
+    },
+    validate: (req:any, res:any, next:any) => {
+        req.sanitizeBody("email").normalizeEmail({
+            all_lowercase: true
+        }).trim();
+        req.check("email", "Email is invalid").isEmail();
+        req.check("password", "Password cannot be empty").notEmpty();
+        req.getValidationResult().then((error:any) => {
+            if (!error.isEmpty()) {
+                let messages = error.array().map((e:any) => e.msg);
+                req.skip = true;
+                req.flash("error", messages.join(" and "));
+                res.locals.redirect = "/user/login";
+                next();
+            } else {
+                next();
+            }
+        });
+    }
 }

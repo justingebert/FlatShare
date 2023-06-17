@@ -7,7 +7,7 @@ const mongoose = require("mongoose").default;
 const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const connectFlash = require("connect-flash");
-
+const expressValidator = require("express-validator");
 
 const errorController = require("./controllers/errorController");
 const homeController = require('./controllers/homeController');
@@ -57,6 +57,7 @@ app.use((req:any, res:Response, next:Function) => {
 
 app.use(layouts)
 app.use(express.static("public"));
+app.use(expressValidator());
 
 
 //app.use(methodOverride("_method", {methods: ["POST", "GET"]}));
@@ -64,10 +65,15 @@ app.use(express.static("public"));
 app.get('/', homeController.showHome);
 
 app.get("/users", userController.index, userController.indexView);
+
 app.get("/users/new", userController.new);
-//TODO problem with pre save hook
-app.post("/users/create", userController.create, userController.redirectView);
-app.get("/users/:id", userController.show, userController.showView);
+app.post("/users/create", userController.validate ,userController.create, userController.redirectView);
+
+app.get("/users/login", userController.login);
+app.post("/users/login", userController.authenticate, userController.redirectView);
+
+app.get("/user/:id", userController.show, userController.showView);
+
 
 app.get("/shopping", shoppingController.index, shoppingController.indexView);
 app.get("/shopping/new", shoppingController.new);
