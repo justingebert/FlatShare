@@ -17,6 +17,14 @@
             </div>
         </div>
       </div>
+      <div>
+        <% if (loggedIn){ %>
+          Logged in as <a class="nav-link text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium " href="<%=`/users/${currentUser.id}`%>">
+          <%= currentUser.fullName %></a>
+          <%} else {%>
+          <a class="nav-link text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium" href="/users/login">Login</a>
+          <% } %>
+      </div>
       <div class="-mr-2 flex md:hidden">
         <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out" aria-label="Main menu" aria-expanded="false">
           <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
