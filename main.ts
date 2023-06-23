@@ -1,19 +1,29 @@
 import express from 'express';
 import { Request, Response,} from 'express';
+
+const app = express();
+const layouts = require("express-ejs-layouts");
+const mongoose = require("mongoose").default;
+const expressSession = require("express-session");
+const cookieParser = require("cookie-parser");
+const connectFlash = require("connect-flash");
+const expressValidator = require("express-validator");
+
+const errorController = require("./controllers/errorController");
 const homeController = require('./controllers/homeController');
 const todoController = require('./controllers/todoController');
 const shoppingController = require('./controllers/shoppingController');
 const userController = require('./controllers/userController');
 const documentsController = require('./controllers/documentsController');
-const app = express();
-const errorController = require("./controllers/errorController");
-const layouts = require("express-ejs-layouts");
 const expensesController = require("./controllers/expensesController");
 const mongoose = require("mongoose").default;
 const method = require("method-override");
 const connectFlash = require("connect-flash");
 const cookieParser = require("cookie-parser");
 const expressSession = require("express-session"); 
+
+const router = express.Router();
+
 
 mongoose.Promise= global.Promise
 mongoose.connect(
@@ -47,13 +57,33 @@ router.get("/users/login", userController.login);
 router.post("/users/login", userController.authenticate, userController.redirectView);
 
 app.use("/", router);
+
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
+app.use(connectFlash());
+app.use("/", router);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser("secret_passcode"));
+app.use(expressSession({
+    secret: "secret_passcode",
+    cookie: {
+        maxAge: 4000000
+    },
+    resave: false,
+    saveUninitialized: false
+}));
+
+
+app.use((req:any, res:Response, next:Function) => {
+    res.locals.flashMessages = req.flash();
+    next();
+});
 
 app.use(layouts)
 app.use(express.static("public"));
+app.use(expressValidator());
 
 
 //app.use(methodOverride("_method", {methods: ["POST", "GET"]}));
@@ -61,9 +91,15 @@ app.use(express.static("public"));
 app.get('/', homeController.showHome);
 
 app.get("/users", userController.index, userController.indexView);
+
 app.get("/users/new", userController.new);
-app.post("/users/create", userController.create, userController.redirectView);
-app.get("/users/:id", userController.show, userController.showView);
+app.post("/users/create", userController.validate ,userController.create, userController.redirectView);
+
+app.get("/users/login", userController.login);
+app.post("/users/login", userController.authenticate, userController.redirectView);
+
+app.get("/user/:id", userController.show, userController.showView);
+
 
 app.get("/shopping", shoppingController.index, shoppingController.indexView);
 app.get("/shopping/new", shoppingController.new);
