@@ -35,7 +35,7 @@ module.exports = {
         let documentParams = getDocumentParams(req.body);
         Documents.create(documentParams)
           .then((document:any) => {
-            res.locals.redirect = "documents";
+            res.locals.redirect = "/documents";
             res.locals.document = document;
             next();
           })
