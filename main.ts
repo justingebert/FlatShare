@@ -19,6 +19,7 @@ const expensesController = require("./controllers/expensesController");
 
 const router = express.Router();
 
+//const Shopping = require("./models/shopping");  
 
 mongoose.Promise= global.Promise
 mongoose.connect(
@@ -36,7 +37,7 @@ app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
 app.use(connectFlash());
 app.use("/", router);
-
+  
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("secret_passcode"));
@@ -83,6 +84,13 @@ app.get("/shopping/:id/edit", shoppingController.edit);
 app.post("/shopping/:id/update", shoppingController.update, shoppingController.redirectView);
 app.get("/shopping/:id/delete", shoppingController.delete, shoppingController.redirectView);
 
+app.get("/documents", documentsController.index, documentsController.indexView);
+app.get("/documents/new", documentsController.new);
+app.post("/documents/create", documentsController.create, documentsController.redirectView);
+app.put("/documents/:id/update", documentsController.update, documentsController.redirectView);
+app.get("/documents/:id", documentsController.show, documentsController.showView);
+app.delete("/documents/:id/delete", documentsController.delete, documentsController.redirectView);
+
 //app.get("/todos", homeController.showTodos);
 app.get("/chat", (req:Request, res:Response,) => {
     res.render("chat")
@@ -111,9 +119,10 @@ router.put("/expenses/:id/update", expensesController.update, expensesController
 router.get("/expenses/:id", expensesController.show, expensesController.showView);
 router.delete("/expenses/:id/delete", expensesController.delete, expensesController.redirectView);
 
+/*
 app.get("/documents", documentsController.getAllDocuments);
 app.post("/documents", documentsController.saveDocuments);
-
+*/
 
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
