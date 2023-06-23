@@ -2,6 +2,8 @@ import { Int32 } from "mongodb";
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Todo = require("./todo");
+const passportLocalMongoose = require("passport-local-mongoose");
+
   
 const userSchema = mongoose.Schema({
     name: {
@@ -20,10 +22,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: "Email is required",
         unique: true
-    },
-    password: {
-        type: String,
-        required: "Password is required"
     },
     created: {
         type: Date,
@@ -57,7 +55,7 @@ userSchema.pre("save", function(next:any) {
     }
 });
 
-userSchema.pre("save", function(next:any) {
+/* userSchema.pre("save", function(next:any) {
     let user = this;
     bcrypt.hash(user.password, 10)
         .then((hash:any) => {
@@ -74,7 +72,11 @@ userSchema.pre("save", function(next:any) {
 userSchema.methods.passwordComparison = function(inputPassword:any) {
     let user = this;
     return bcrypt.compare(inputPassword, user.password);
-}
+} */
+
+userSchema.plugin(passportLocalMongoose, {
+    usernameField: "email"
+})
 
 
 module.exports = mongoose.model("User", userSchema);
