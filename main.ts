@@ -75,7 +75,7 @@ app.use(expressValidator());
 
 //app.use(methodOverride("_method", {methods: ["POST", "GET"]}));
 
-app.get('/', homeController.showHome);
+//app.get('/', homeController.showHome);
 
 app.get("/users", userController.index, userController.indexView);
 
@@ -118,18 +118,13 @@ app.post("/shopping", shoppingController.saveShopping);
 app.get("/todos", todoController.index, todoController.indexView);
 app.post("/todos", todoController.create, todoController.redirectView);
 
-const methodOverride = require("method-override");
-router.use(methodOverride("_method", {
-methods: ["POST", "GET"]
-}));
-
-router.get("/expenses",expensesController.index, expensesController.indexView);
-router.get("/expenses/new", expensesController.new);
-router.post("/expenses/create", expensesController.create, expensesController.redirectView);
-router.get("/expenses/:id/edit", expensesController.edit);
-router.put("/expenses/:id/update", expensesController.update, expensesController.redirectView);
-router.get("/expenses/:id", expensesController.show, expensesController.showView);
-router.delete("/expenses/:id/delete", expensesController.delete, expensesController.redirectView);
+app.get("/expenses",expensesController.index, expensesController.indexView);
+app.get("/expenses/new", expensesController.new);
+app.post("/expenses/create", expensesController.create, expensesController.redirectView);
+app.get("/expenses/:id/edit", expensesController.edit);
+app.post("/expenses/:id/update", expensesController.update, expensesController.redirectView);
+app.get("/expenses/:id", expensesController.show, expensesController.showView);
+app.get("/expenses/:id/delete", expensesController.delete, expensesController.redirectView);
 
 /*
 app.get("/documents", documentsController.getAllDocuments);
