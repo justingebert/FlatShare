@@ -8,7 +8,10 @@ const homeRoutes = require("./homeRoutes");
 const userRoutes = require("./userRoutes");
 const expensesRoutes = require("./expensesRoutes");
 
-
-//router.use("/shopping", shoppingRoutes);
+/*
+router.use("/", homeRoutes);
+router.use("/shopping", shoppingRoutes);
+router.use("/documents", shoppingRoutes);
+*/
 
 module.exports = router;
