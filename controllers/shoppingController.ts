@@ -1,9 +1,6 @@
 import { NextFunction } from "express"; 
 import { any } from "webidl-conversions";
 
-const router = require("express").Router();
-const shoppingController = require("../controllers/shoppingController");
-
 const Shopping = require("../data/models/shopping");
 
 

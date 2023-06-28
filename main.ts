@@ -10,17 +10,19 @@ const connectFlash = require("connect-flash");
 const expressValidator = require("express-validator");
 const passport = require("passport");
 
+/*
 const errorController = require("./controllers/errorController");
 const homeController = require('./controllers/homeController');
 const todoController = require('./controllers/todoController');
-const shoppingController = require('./controllers/shoppingController');
+//const shoppingController = require('./controllers/shoppingController');
 const userController = require('./controllers/userController');
 const documentsController = require('./controllers/documentsController');
 const expensesController = require("./controllers/expensesController");
+*/
 
 const User = require("./data/models/user");
-
-const router = express.Router();
+//const router = express.Router();
+const router = require("./routes/index") 
 
 //const Shopping = require("./models/shopping");  
 
@@ -75,18 +77,22 @@ app.use(expressValidator());
 
 //app.use(methodOverride("_method", {methods: ["POST", "GET"]}));
 
+/*
+app.get("/chat", (req:Request, res:Response,) => {
+    res.render("chat")
+    }
+);
+*/
+
+/*
 app.get('/', homeController.showHome);
 
 app.get("/users", userController.index, userController.indexView);
-
 app.get("/users/new", userController.new);
 app.post("/users/create", userController.validate ,userController.create, userController.redirectView);
-
 app.get("/users/login", userController.login);
 app.post("/users/login", userController.authenticate);
-
 app.get("/user/:id", userController.show, userController.showView);
-
 
 app.get("/shopping", shoppingController.index, shoppingController.indexView);
 app.get("/shopping/new", shoppingController.new);
@@ -103,17 +109,10 @@ app.put("/documents/:id/update", documentsController.update, documentsController
 app.get("/documents/:id", documentsController.show, documentsController.showView);
 app.delete("/documents/:id/delete", documentsController.delete, documentsController.redirectView);
 
-//app.get("/todos", homeController.showTodos);
-app.get("/chat", (req:Request, res:Response,) => {
-    res.render("chat")
-    }
-);
+app.get("/todos", homeController.showTodos);
 
-
-/*
 app.get("/shopping", shoppingController.getAllShopping);
 app.post("/shopping", shoppingController.saveShopping);
-*/
 
 app.get("/todos", todoController.index, todoController.indexView);
 app.post("/todos", todoController.create, todoController.redirectView);
@@ -131,13 +130,15 @@ router.put("/expenses/:id/update", expensesController.update, expensesController
 router.get("/expenses/:id", expensesController.show, expensesController.showView);
 router.delete("/expenses/:id/delete", expensesController.delete, expensesController.redirectView);
 
-/*
 app.get("/documents", documentsController.getAllDocuments);
 app.post("/documents", documentsController.saveDocuments);
 */
 
+/*
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
+*/
+
 
 app.listen(3000, () => {
     console.log('server started');
