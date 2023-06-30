@@ -3,6 +3,7 @@ import { any } from "webidl-conversions";
 
 const Shopping = require("../data/models/shopping");
 
+
 module.exports = {
     index: (req:any, res:any, next:any) => {
         Shopping.find({})
