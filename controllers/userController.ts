@@ -1,7 +1,10 @@
 import { Console } from "console";
+import e, { NextFunction, Request, Response } from "express";
 const passport = require("passport");
 
 const User = require("../data/models/user");
+const token = process.env.TOKEN || "12345678";
+const jsonwebtoken = require("jsonwebtoken");
 
 const getUserParams = (body:any) => {
     return {
@@ -28,11 +31,15 @@ module.exports = {
         );
     },
     indexView: (req:any, res:any) => {
-        res.render("user/index", {
-            flashMessages: {
-              success: "Loaded all users!"
-            }
-          });
+        if(req.query.format === "json") {
+            return res.json(res.locals.users);
+        } else {
+            res.render("user/index", {
+                flashMessages: {
+                success: "Loaded all users!"
+                }
+            });
+        }
     },
     new: (req:any, res:any) => {
         res.render("user/new");
@@ -135,5 +142,72 @@ module.exports = {
                 next();
             }
         });
-    }
+    },
+    verifyToken: async (req:Request, res:Response, next:NextFunction) => {
+        let token  = req.query.apiToken;
+        if(token){
+            User.findOne({apiToken: token})
+                .then((user:any) => {
+                    if(user) next();
+                    else next(new Error("Invalid API Token"));
+                }
+            ).catch((error:Error) => {
+                next(new Error(error.message));
+            });
+        }else{
+            next(new Error("Invalid API Token"));
+        }
+    },
+    apiAuthenticate: async (req:Request, res:Response, next:NextFunction) => {
+        passport.authenticate("local", (errors:any, user:any) => {
+            if(user){
+                let signedToken = jsonwebtoken.sign(
+                    {
+                        data: user._id,
+                        exp: new Date().setDate(new Date().getDate() + 1)
+                    },
+                    "secret_encoding_passphrase"
+                );
+                res.json({
+                    success: true,
+                    token: signedToken
+                });
+            }else
+                res.json({
+                    success: false,
+                    message: "Could not authenticate user."
+                });
+        })(req, res, next); 
+    },
+    verifyJWT: async (req:Request, res:Response, next:NextFunction) => {
+        let token = req.headers.token;
+        if(token){
+            jsonwebtoken.verify(token, "secret_encoding_passphrase",
+             (error:any, payload:any) => {
+                if(payload){
+                    User.findById(payload.data).then((user:any) => {
+                        if(user){
+                            next();
+                        }else{
+                            res.status(httpStatus.FORBIDDEN).json({
+                                success: false,
+                                message: "No user account found."
+                            });
+                        }
+                    });
+                }else{
+                    res.status(httpStatus.UNAUTHORIZED).json({
+                        success: false,
+                        message: "Cannot verify API token."
+                    });
+                    next();
+                }
+            });
+        }else{
+            res.status(httpStatus.UNAUTHORIZED).json({
+                success: false,
+                message: "Provide Token"
+            });
+        }
+    },
 }
