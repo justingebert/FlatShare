@@ -3,6 +3,8 @@ import { Schema, SchemaOptions } from "mongoose";
 
 const Todo = require("../data/models/todo");
 
+const token = process.env.TOKEN || "12345678";
+
 const getTodoParams = (body:any) => {
     return {
         name: body.name,
@@ -23,8 +25,27 @@ module.exports = {
             })
     },
     indexView: (req:Request, res:Response) => {
+        if(req.query.format === "json") {
+            return res.json(res.locals.todos);
+        } else {
         res.render("todos/index")
+        }
     },
+    filterUserTodos: async (req:any, res:Response, next:NextFunction) => {
+        let currentUser = req.locals.currentUser
+        if(currentUser) {
+            let mappedTodos = res.locals.todos.map((todo:any) => {
+                if(todo.user._id.equals(currentUser._id)){
+                    return todo
+                }
+            })
+            res.locals.todos = mappedTodos
+            next()
+        } else {
+            next()
+        }
+    },
+
     create: async (req:Request, res:Response, next:NextFunction) => {
         let todo = {
             name: req.body.name,
@@ -72,6 +93,30 @@ module.exports = {
         let redirectPath = res.locals.redirect;
         if (redirectPath) res.redirect(redirectPath);
         else next();
-    }       
+    },
+
+
+    respondJSON: (req:Request, res:Response) => {
+        res.json({
+            status: httpStatus.OK,
+            data: res.locals
+        });
+    },
+    errorJSON: (error:Error, req:Request, res:Response, next:NextFunction) => {
+        let errorObject;
+        if (error) {
+            errorObject = {
+                status: httpStatus.INTERNAL_SERVER_ERROR,
+                message: error.message
+            };
+        } else {
+            errorObject = {
+                status: httpStatus.INTERNAL_SERVER_ERROR,
+                message: "Unknown Error."
+            };
+        }
+        res.json(errorObject);
+    }
+    
 }
 

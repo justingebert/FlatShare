@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Todo = require("./todo");
 const passportLocalMongoose = require("passport-local-mongoose");
-
+const randToken = require("rand-token");
   
 const userSchema = mongoose.Schema({
     name: {
@@ -73,6 +73,12 @@ userSchema.methods.passwordComparison = function(inputPassword:any) {
     let user = this;
     return bcrypt.compare(inputPassword, user.password);
 } */
+
+userSchema.pre("save", function(next:any) {
+    let user = this;
+    if(!user.apiToken) user.apiToken = randToken.generate(16);
+    next();
+});
 
 userSchema.plugin(passportLocalMongoose, {
     usernameField: "email"

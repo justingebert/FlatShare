@@ -10,21 +10,8 @@ const connectFlash = require("connect-flash");
 const expressValidator = require("express-validator");
 const passport = require("passport");
 
-/*
-const errorController = require("./controllers/errorController");
-const homeController = require('./controllers/homeController');
-const todoController = require('./controllers/todoController');
-const shoppingController = require('./controllers/shoppingController');
-const userController = require('./controllers/userController');
-const documentsController = require('./controllers/documentsController');
-const expensesController = require("./controllers/expensesController");
-*/
-
 const User = require("./data/models/user");
-//const router = express.Router();
 const router = require("./routes/index") 
-
-//const Shopping = require("./models/shopping");  
 
 mongoose.Promise= global.Promise
 mongoose.connect(
@@ -37,15 +24,13 @@ db.once("open", () => {
     console.log("Successfully connected to MongoDB using Mongoose!");
 })
 
-
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
+app.set("token", process.env.TOKEN || "12345678");
 app.use(connectFlash());
-
 
 app.use(layouts);
 app.use(express.static("public"));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("secret_passcode"));
@@ -74,69 +59,6 @@ app.use((req:any, res:Response, next:Function) => {
 
 app.use(expressValidator());
 app.use("/", router);
-
-//app.use(methodOverride("_method", {methods: ["POST", "GET"]}));
-
-/*
-app.get('/', homeController.showHome);
-
-app.get("/users", userController.index, userController.indexView);
-app.get("/users/new", userController.new);
-app.post("/users/create", userController.validate ,userController.create, userController.redirectView);
-app.get("/users/login", userController.login);
-app.post("/users/login", userController.authenticate);
-app.get("/user/:id", userController.show, userController.showView);
-
-app.get("/shopping", shoppingController.index, shoppingController.indexView);
-app.get("/shopping/new", shoppingController.new);
-app.post("/shopping/create", shoppingController.create, shoppingController.redirectView);
-app.get("/shopping/:id", shoppingController.show, shoppingController.showView);
-app.get("/shopping/:id/edit", shoppingController.edit); 
-app.post("/shopping/:id/update", shoppingController.update, shoppingController.redirectView);
-app.get("/shopping/:id/delete", shoppingController.delete, shoppingController.redirectView);
-
-app.get("/documents", documentsController.index, documentsController.indexView);
-app.get("/documents/new", documentsController.new);
-app.post("/documents/create", documentsController.create, documentsController.redirectView);
-app.put("/documents/:id/update", documentsController.update, documentsController.redirectView);
-app.get("/documents/:id", documentsController.show, documentsController.showView);
-app.delete("/documents/:id/delete", documentsController.delete, documentsController.redirectView);
-
-app.get("/shopping", shoppingController.getAllShopping);
-app.post("/shopping", shoppingController.saveShopping);
-
-app.get("/todos", homeController.showTodos);
-
-app.get("/todos", todoController.index, todoController.indexView);
-app.post("/todos", todoController.create, todoController.redirectView);
-
-const methodOverride = require("method-override");
-router.use(methodOverride("_method", {
-methods: ["POST", "GET"]
-}));
-
-router.get("/expenses",expensesController.index, expensesController.indexView);
-router.get("/expenses/new", expensesController.new);
-router.post("/expenses/create", expensesController.create, expensesController.redirectView);
-router.get("/expenses/:id/edit", expensesController.edit);
-router.put("/expenses/:id/update", expensesController.update, expensesController.redirectView);
-router.get("/expenses/:id", expensesController.show, expensesController.showView);
-router.delete("/expenses/:id/delete", expensesController.delete, expensesController.redirectView);
-
-app.get("/documents", documentsController.getAllDocuments);
-app.post("/documents", documentsController.saveDocuments);
-
-app.get("/chat", (req:Request, res:Response,) => {
-    res.render("chat")
-    }
-);
-*/
-
-/*
-app.use(errorController.pageNotFoundError);
-app.use(errorController.internalServerError);
-*/
-
 
 app.listen(3000, () => {
     console.log('server started');
