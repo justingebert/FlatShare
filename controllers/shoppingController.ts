@@ -17,7 +17,11 @@ module.exports = {
         );
     },
     indexView: (req:any, res:any) => {
-        res.render("shopping/index");
+        if(req.query.format === "json") {
+            return res.json(res.locals.shopping);
+        } else {
+            res.render("shopping/index");
+        }
     },
     new: (req:any, res:any) => {
         res.render("shopping/new");
