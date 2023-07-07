@@ -9,3 +9,22 @@ $.get("/api/todos", (results = {}) => {
         );
     });
 });
+
+const socket = io();
+$("chatForm").submit(() => {
+    let text = $("#chat-input").val()
+    socket.emit("message", {
+        content: text
+    })
+    $("#chat-input").val("")
+    return false
+})
+
+socket.on("message", (msg:any) => {
+    displayMessage(msg.content)
+})
+
+let displayMessage = (message:any) => {
+    $("#chat").prepend($("<li>").html(message))
+}
+

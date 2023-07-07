@@ -14,3 +14,7 @@ exports.showHome = (req:Request, res:Response) => {
             expenses: expenses
     })
 }
+
+exports.chat = (req:Request, res:Response) => {
+    res.render("chat")
+}

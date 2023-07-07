@@ -27,6 +27,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@types/socket.io": "^3.0.2",
     "bcrypt": "^5.1.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
@@ -42,6 +43,7 @@
     "mongoose": "^7.2.1",
     "passport": "^0.6.0",
     "passport-local-mongoose": "^8.0.0",
-    "rand-token": "^1.0.1"
+    "rand-token": "^1.0.1",
+    "socket.io": "^4.7.1"
   }
 }
